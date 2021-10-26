@@ -29,9 +29,9 @@ const DefaultView = (props) =>{
     } else{
         return (
             <main className="default">
-                <Header/>
-                <PlayList plays={plays}/>
-                <Favourites/>
+                {/*<Header/>*/}
+                {/*<PlayList plays={plays} keywords={props.search}/>*/}
+                {/*<Favourites/>*/}
             </main>
         )
     }
