@@ -26,8 +26,8 @@ const DefaultView = (props) =>{
         } else stopFetching(false);
     }, [plays, updatePlays])
     let playList = <PlayList plays={plays}/>
-    if (props.search){
-        playList = <PlayList plays={plays} key={props.search}/>
+    if (typeof props.search === "string"){
+        playList = <PlayList plays={plays} search={props.search}/>
     }
 
     if (isFetching && plays.length === 0){
