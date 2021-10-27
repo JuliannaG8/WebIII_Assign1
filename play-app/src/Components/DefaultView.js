@@ -1,7 +1,7 @@
 import {useLocalStorage} from "../Hooks/useLocalStorage";
 import {useState, useEffect} from "react";
 import Loader from 'react-loader-spinner';
-
+import PlayList from "./PlayList";
 
 const DefaultView = (props) =>{
     const [plays, updatePlays] = useLocalStorage("plays", []);
@@ -19,25 +19,26 @@ const DefaultView = (props) =>{
                 })
                 .then(data => {
                     //places fetched data in state
-                    updatePlays(data);
+                    updatePlays(data.sort((a, b) => a.title>b.title ? 1 : -1));
                     stopFetching(false);
                 })
                 .catch(error => console.error(error));
         } else stopFetching(false);
     }, [plays, updatePlays])
+    let playList = <PlayList plays={plays}/>
+    if (typeof props.search === "string"){
+        playList = <PlayList plays={plays} search={props.search}/>
+    }
+
     if (isFetching && plays.length === 0){
         return <Loader type="Circles" color="#00BFFF" height="50vh" width="50vh"/>
     } else{
         return (
-            <main className="default">
+            <div className="default">
                 {/*<Header/>*/}
-            {/*    {if (props.search){*/}
-            {/*        <PlayList plays={plays} keyword={props.search}/>*/}
-            {/*    }else{*/}
-            {/*    <PlayList plays={plays}/>*/}
-            {/*}}*/}
+                {playList}
                 {/*<Favourites/>*/}
-            </main>
+            </div>
         )
     }
 }
