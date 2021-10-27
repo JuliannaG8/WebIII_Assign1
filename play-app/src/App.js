@@ -1,23 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import {Route, Switch} from 'react-router-dom';
+import {useState, useEffect} from "react";
+import {useLocalStorage} from "./Hooks/useLocalStorage";
+import DefaultView from "./Components/DefaultView";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/*  commented out for now so nothing breaks while testing*/}
+      {/*<Route path="/home" exact component={<Home/>} />*/}
+      <Route path='/default' exact component={<DefaultView/>}/>
+      {/*<Switch>*/}
+      {/*  <Route path='/:play' children={<PlayDetails/>}/>*/}
+      {/*</Switch>*/}
     </div>
   );
 }
