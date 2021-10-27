@@ -6,7 +6,7 @@ const PlayTable=props=>{
                 <th>Title</th>
                 <th>Year</th>
             </tr>
-            {props.plays.map(p=><PlayRow play={p}/>)}
+            {props.plays.map(p=><PlayRow play={p} key={p.id}/>)}
         </table>
     )
 }
