@@ -1,16 +1,18 @@
-
+import PlayTable from "./PlayTable";
 const PlayList = props =>{
     if (typeof props.search === "string"){
         const filteredPlays = props.plays.filter(p=> p.title.toLowerCase().includes(props.search.toLowerCase()))
         return(
             <div>
-                {filteredPlays.map(p=><p>{p.title}</p>)}
+                <h2>List/Matches</h2>
+                <PlayTable plays={filteredPlays}/>
             </div>
         )
     } else {
         return (
             <div>
-                {props.plays.map(p => <p>{p.title}</p>)}
+                <h2>List/Matches</h2>
+                <PlayTable plays={props.plays}/>
             </div>
         )
     }
