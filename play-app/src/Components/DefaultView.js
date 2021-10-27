@@ -19,7 +19,7 @@ const DefaultView = (props) =>{
                 })
                 .then(data => {
                     //places fetched data in state
-                    updatePlays(data);
+                    updatePlays(data.sort((a, b) => a.title>b.title ? 1 : -1));
                     stopFetching(false);
                 })
                 .catch(error => console.error(error));
@@ -34,11 +34,11 @@ const DefaultView = (props) =>{
         return <Loader type="Circles" color="#00BFFF" height="50vh" width="50vh"/>
     } else{
         return (
-            <main className="default">
+            <div className="default">
                 {/*<Header/>*/}
                 {playList}
                 {/*<Favourites/>*/}
-            </main>
+            </div>
         )
     }
 }
