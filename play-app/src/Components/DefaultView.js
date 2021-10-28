@@ -2,6 +2,8 @@ import {useLocalStorage} from "../Hooks/useLocalStorage";
 import {useState, useEffect} from "react";
 import Loader from 'react-loader-spinner';
 import PlayList from "./PlayList";
+import PlayFilter from "./PlayFilter";
+import * as cloneDeep from 'lodash/cloneDeep';
 
 const DefaultView = (props) =>{
     const [plays, updatePlays] = useLocalStorage("plays", []);
@@ -25,7 +27,17 @@ const DefaultView = (props) =>{
                 .catch(error => console.error(error));
         } else stopFetching(false);
     }, [plays, updatePlays])
-    let playList = <PlayList plays={plays}/>
+    const sort = (e)=>{
+        const sortedPlays = cloneDeep(plays);
+        let sortBy;
+        if(e.target.textContent.toLowerCase() === "year")
+            sortBy="likelyDate";
+        else
+            sortBy=e.target.textContent.toLowerCase();
+        sortedPlays.sort((a, b) => a[sortBy]>b[sortBy] ? 1 : -1);
+        updatePlays(sortedPlays);
+    }
+    let playList = <PlayList plays={plays} sort={sort}/>
     if (typeof props.search === "string"){
         playList = <PlayList plays={plays} search={props.search}/>
     }
@@ -36,6 +48,7 @@ const DefaultView = (props) =>{
         return (
             <div className="default">
                 {/*<Header/>*/}
+                <PlayFilter genres={plays.map(p=>p.genre)}/>
                 {playList}
                 {/*<Favourites/>*/}
             </div>
