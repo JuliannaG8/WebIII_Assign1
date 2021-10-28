@@ -10,7 +10,7 @@ function App() {
         <DefaultView/>
       {/*  commented out for now so nothing breaks while testing*/}
       {/*<Route path="/home" exact component={<Home/>} />*/}
-      <Route path='/default' exact component={<DefaultView/>}/>
+      <Route path='/default' exact component={DefaultView}/>
       {/*<Switch>*/}
       {/*  <Route path='/:play' children={<PlayDetails/>}/>*/}
       {/*</Switch>*/}
