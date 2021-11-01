@@ -8,8 +8,9 @@ const PlayFilter=props=>{
     const title = createRef();
     const genre = createRef();
     const handleSubmit =(e) => {
+
         e.preventDefault();
-        // alert(typeof beforeYear.current.value + "" + after.current.checked + title.current.value +
+
         const filters = {};
         if (before.current.checked && beforeYear.current.value.length > 0) filters.before = beforeYear.current.value;
         if (after.current.checked && afterYear.current.value.length > 0) filters.after = afterYear.current.value;
@@ -18,14 +19,13 @@ const PlayFilter=props=>{
 
         if (Object.keys(filters).length === 0)
             alert("Error: please input some filter parameters")
-        else
-            for (const p in filters){
-                alert(filters[p]);
-            }
+        else {
+            props.filter(filters);
+        }
     }
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} onReset={props.reset}>
             <h2>Filters</h2>
             <div>
                 <p><label>Title</label></p>
