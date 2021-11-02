@@ -8,7 +8,15 @@ const PlayList = props =>{
                 <PlayTable plays={filteredPlays} sort={props.sort}/>
             </span>
         )
-    } else {
+    } else if(props.plays.length === 0){
+        return (
+            <span>
+                <h2>List/Matches</h2>
+                <p>No Plays match given parameters</p>
+            </span>
+        )
+    }
+    else {
         return (
             <span>
                 <h2>List/Matches</h2>
