@@ -7,14 +7,17 @@ import * as cloneDeep from 'lodash/cloneDeep';
 
 
 const DefaultView = (props) =>{
-    const [plays, updatePlays] = useLocalStorage("plays", []);
+    //plays is passed to other components and altered in filter method, while fullPlaysList contains the full list of
+    //plays set in local storage and does not get altered in order to preserve the full list and prevent situations where
+    //the user closes the browser without resetting the filtered list
+    const [fullPlaysList, setFullPlaysList] = useLocalStorage("plays", []);
+    const [plays, updatePlays] = useState([]);
     const [isFetching, stopFetching] = useState(true);
     const genres = [...new Set(plays.map(p=>p.genre))];
-    const [oldPlays, setOldPlays] = useState([]);
 
     useEffect(()=> {
         const url = "https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/list.php"; //url to fetch data
-        if (plays.length === 0) { //only fetches if local storage doesn't exist
+        if (fullPlaysList.length === 0) { //only fetches if local storage doesn't exist
             fetch(url)
                 .then(response => {
                     if (response.ok) {
@@ -24,13 +27,17 @@ const DefaultView = (props) =>{
                     }
                 })
                 .then(data => {
-                    //places fetched data in state
+                    //places fetched data in state & local storage
+                    setFullPlaysList(data.sort((a, b) => a.title>b.title ? 1 : -1));
                     updatePlays(data.sort((a, b) => a.title>b.title ? 1 : -1));
                     stopFetching(false);
                 })
                 .catch(error => console.error(error));
-        } else stopFetching(false);
-    }, [plays, updatePlays])
+        } else {
+            updatePlays(fullPlaysList);
+            stopFetching(false);
+        }
+    }, [fullPlaysList, setFullPlaysList])
 
     const sort = (e)=>{
         //cloning plays list
@@ -45,14 +52,12 @@ const DefaultView = (props) =>{
         sortedPlays.sort((a, b) => a[sortBy]>b[sortBy] ? 1 : -1);
         updatePlays(sortedPlays);
     }
-    //uses oldPlays state variable to reset plays
+    //uses fullPlaysList state variable to reset plays
     const restorePlays = ()=>{
-        updatePlays(oldPlays);
+        updatePlays(fullPlaysList);
     }
 
     const filter = filters =>{
-        //setting fetched list of plays in separate state variable
-        setOldPlays(plays);
         //separate function to filter list by dates
         const filterPlaysByDate = (before, after, filteredPlays) => {
             //only returns plays whose years are between before and after years when both are specified,
@@ -71,13 +76,8 @@ const DefaultView = (props) =>{
             const filterByDate = cloneDeep(filteredPlays);
             filteredPlays = filterPlaysByDate(parseInt(filters.before), parseInt(filters.after), filterByDate);
         }
-        //if no plays match given parameters, gives the user an alert
-        //otherwise sets the list of filtered plays to state
-        if(filteredPlays.length === 0){
-            alert("No plays match the provided parameters");
-        } else {
-            updatePlays(filteredPlays);
-        }
+        //sets the list of filtered plays to state
+        updatePlays(filteredPlays);
     }
     //while fetching data, displays loading symbol
     if (isFetching && plays.length === 0){
