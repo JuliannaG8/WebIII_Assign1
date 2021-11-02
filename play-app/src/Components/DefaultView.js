@@ -63,8 +63,8 @@ const DefaultView = (props) =>{
         }
         //only returns plays that match both title and genre when both are specified,
         //or only matches the parameters of one when the other is missing
-        let filteredPlays = plays.filter(p=> (p.title === filters.title && p.genre === filters.genre) ||
-            (typeof filters.genre === "undefined" && p.title === filters.title) ||
+        let filteredPlays = plays.filter(p=> (p.title.toLowerCase().includes(filters.title.toLowerCase()) && p.genre === filters.genre) ||
+            (typeof filters.genre === "undefined" && p.title.toLowerCase().includes(filters.title.toLowerCase())) ||
             (typeof filters.title === "undefined" && p.genre === filters.genre));
         //only filters by dates if either before or after year is specified
         if (typeof filters.before != "undefined" || typeof filters.after != "undefined"){
