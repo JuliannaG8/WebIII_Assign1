@@ -1,3 +1,4 @@
+//logic inspired by https://blog.logrocket.com/using-localstorage-react-hooks/
 import {useState, useEffect} from "react";
 
 function getStorageValue(key, defaultValue){
