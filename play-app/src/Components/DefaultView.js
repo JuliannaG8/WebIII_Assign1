@@ -15,13 +15,18 @@ const DefaultView = (props) =>{
                 favouritesCopy.push(play);
                 editFavourites(favouritesCopy);
         }
-
+        const removeFavourite=(id)=>{
+                const favouritesCopy = cloneDeep(favourites);
+                const favToDelete=favouritesCopy.findIndex(f=>f.id === id);
+                favouritesCopy.splice(favToDelete, 1);
+                editFavourites(favouritesCopy);
+        }
         return (
             <div className="default">
                 <Header/>
                 <PlayFilter genres={[...new Set(props.plays.map(p=>p.genre))]} filter={props.filter} reset={props.restore}/>
                 <PlayList plays={props.plays} search={props.search} sort={props.sort} addFav={addFavourite}/>
-                <Favourites favourites={favourites} visible={favouritesVisibility}/>
+                <Favourites favourites={favourites} visible={favouritesVisibility} remove={removeFavourite}/>
             </div>
         )
 }
