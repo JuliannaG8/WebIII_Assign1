@@ -5,7 +5,7 @@ const PlayList = props =>{
         return(
             <span>
                 <h2>List/Matches</h2>
-                <PlayTable plays={filteredPlays} sort={props.sort}/>
+                <PlayTable plays={filteredPlays} sort={props.sort} addFav={props.addFav}/>
             </span>
         )
     } else if(props.plays.length === 0){
@@ -20,7 +20,7 @@ const PlayList = props =>{
         return (
             <span>
                 <h2>List/Matches</h2>
-                <PlayTable plays={props.plays} sort={props.sort}/>
+                <PlayTable plays={props.plays} sort={props.sort} addFav={props.addFav}/>
             </span>
         )
     }

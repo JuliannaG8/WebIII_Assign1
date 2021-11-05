@@ -10,15 +10,19 @@ import Favourites from "./Favourites";
 const DefaultView = (props) =>{
         const [favourites, editFavourites] = useState([]);
         const [favouritesVisibility, editFavouritesVisibility] = useState(true);
+        const addFavourite=(play)=>{
+                const favouritesCopy = cloneDeep(favourites);
+                favouritesCopy.push(play);
+                editFavourites(favouritesCopy);
+        }
 
         return (
             <div className="default">
                 <Header/>
                 <PlayFilter genres={[...new Set(props.plays.map(p=>p.genre))]} filter={props.filter} reset={props.restore}/>
-                <PlayList plays={props.plays} search={props.search} sort={props.sort} />
+                <PlayList plays={props.plays} search={props.search} sort={props.sort} addFav={addFavourite}/>
                 <Favourites favourites={favourites} visible={favouritesVisibility}/>
             </div>
         )
-    // }
 }
 export default DefaultView;
