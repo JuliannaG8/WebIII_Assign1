@@ -11,9 +11,20 @@ const DefaultView = (props) =>{
         const [favourites, editFavourites] = useState([]);
         const [favouritesVisibility, editFavouritesVisibility] = useState(true);
         const addFavourite=(play)=>{
-                const favouritesCopy = cloneDeep(favourites);
-                favouritesCopy.push(play);
-                editFavourites(favouritesCopy);
+                const exists = favourites.find(f=>f.id === play.id);
+                if (typeof exists === 'undefined')
+                {
+                        const favouritesCopy = cloneDeep(favourites);
+                        favouritesCopy.push(play);
+                        editFavourites(favouritesCopy);
+                } else
+                        alert("Play already in Favourites list");
+        }
+        const toggleVisibility=()=>{
+                if(favouritesVisibility)
+                        editFavouritesVisibility(false);
+                else
+                        editFavouritesVisibility(true);
         }
         const removeFavourite=(id)=>{
                 const favouritesCopy = cloneDeep(favourites);
@@ -26,7 +37,7 @@ const DefaultView = (props) =>{
                 <Header/>
                 <PlayFilter genres={[...new Set(props.plays.map(p=>p.genre))]} filter={props.filter} reset={props.restore}/>
                 <PlayList plays={props.plays} search={props.search} sort={props.sort} addFav={addFavourite}/>
-                <Favourites favourites={favourites} visible={favouritesVisibility} remove={removeFavourite}/>
+                <Favourites favourites={favourites} visible={favouritesVisibility} remove={removeFavourite} toggle={toggleVisibility}/>
             </div>
         )
 }
