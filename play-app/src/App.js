@@ -82,7 +82,7 @@ function App() {
     } else{
         return (
             <div className="App">
-                <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort} genres={genres} />
+                <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort}/>
                 {/*  commented out for now so nothing breaks while testing*/}
                 {/*<Route path="/home" exact component={<Home/>} />*/}
                 <Route path='/default' exact>
