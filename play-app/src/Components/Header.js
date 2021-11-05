@@ -24,6 +24,7 @@ const Header = ()=>{
                   <li>React-model</li>
                   <li>React-loader-spinner</li>
                   <li>Lodash</li>
+                  <li><a href="https://blog.logrocket.com/using-localstorage-react-hooks/">Local Storage logic inspiration</a></li>
               </ul>
               <button onClick={handleModel}>Close</button>
           </ReactModal>
