@@ -2,7 +2,9 @@ import {GiTheaterCurtains} from "react-icons/gi";
 import ReactModal from "react-modal";
 import {useState} from "react";
 const Header = ()=>{
+    //state used to determine whether the modal box should be displayed
     const [modalIsOpen, changeModel] = useState(false);
+    //handler for opening and closing the modal box
     const handleModel=()=>{
         if(modalIsOpen)
             changeModel(false);
