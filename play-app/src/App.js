@@ -7,9 +7,13 @@ import * as cloneDeep from "lodash/cloneDeep";
 import Loader from "react-loader-spinner";
 
 function App() {
+    //fullPlaysList contains the entire list unedited of plays as fetched from the api/local storage, while plays will be
+    //altered by filter/sort/restorePlays functions and passed to other components as props
+    //local storage logic inspired by https://blog.logrocket.com/using-localstorage-react-hooks/
     const [fullPlaysList, setFullPlaysList] = useLocalStorage("plays", []);
     const [plays, updatePlays] = useState([]);
     const [isFetching, stopFetching] = useState(true);
+    const [favorites, updateFavorites] = useState([]);
 
     useEffect(()=> {
         const url = "https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/list.php"; //url to fetch data
