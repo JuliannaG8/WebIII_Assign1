@@ -4,6 +4,7 @@ import Loader from 'react-loader-spinner';
 import PlayList from "./PlayList";
 import PlayFilter from "./PlayFilter";
 import * as cloneDeep from 'lodash/cloneDeep';
+import Header from "./Header";
 
 
 const DefaultView = (props) =>{
@@ -85,7 +86,7 @@ const DefaultView = (props) =>{
     } else{
         return (
             <div className="default">
-                {/*<Header/>*/}
+                <Header/>
                 <PlayFilter genres={genres} filter={filter} reset={restorePlays}/>
                 <PlayList plays={plays} search={props.search} sort={sort} />
                 {/*<Favourites/>*/}
