@@ -14,7 +14,6 @@ function App() {
     //altered by filter/sort/restorePlays functions and passed to other components as props
     const [plays, updatePlays] = useState([]);
     const [isFetching, stopFetching] = useState(true);
-    const [favorites, updateFavorites] = useState([]);
 
     useEffect(()=> {
         const url = "https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/list.php"; //url to fetch data
