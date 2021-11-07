@@ -7,7 +7,11 @@ import * as cloneDeep from "lodash/cloneDeep";
 import Loader from "react-loader-spinner";
 
 function App() {
+
+    //local storage logic inspired by https://blog.logrocket.com/using-localstorage-react-hooks/
     const [fullPlaysList, setFullPlaysList] = useLocalStorage("plays", []);
+    //fullPlaysList contains the entire list unedited of plays as fetched from the api/local storage, while plays will be
+    //altered by filter/sort/restorePlays functions and passed to other components as props
     const [plays, updatePlays] = useState([]);
     const [isFetching, stopFetching] = useState(true);
 
@@ -55,7 +59,7 @@ function App() {
     }
 
     const filter = filters =>{
-        //separate function to filter list by dates
+        //function to filter list by dates
         const filterPlaysByDate = (before, after, filteredPlays) => {
             //only returns plays whose years are between before and after years when both are specified,
             //or only matches the parameters of one when the other is missing
@@ -63,16 +67,29 @@ function App() {
                 (typeof after === "undefined" && p.likelyDate < before) ||
                 (typeof before === "undefined" && p.likelyDate > after));
         }
-        //only returns plays that match both title and genre when both are specified,
-        //or only matches the parameters of one when the other is missing
-        let filteredPlays = plays.filter(p=> (p.title.toLowerCase().includes(filters.title.toLowerCase()) && p.genre === filters.genre) ||
-            (typeof filters.genre === "undefined" && p.title.toLowerCase().includes(filters.title.toLowerCase())) ||
-            (typeof filters.title === "undefined" && p.genre === filters.genre));
+        //function to filter by title and/or genre
+        const filterPlaysByTitleGenre = (titleString, genre, filteredPlays) =>{
+            //only returns plays that match both title and genre when both are specified,
+            //or only matches the parameters of one when the other is missing
+            return filteredPlays.filter(p=> (p.title.toLowerCase().includes(titleString) && p.genre === genre) ||
+                (typeof genre === "undefined" && p.title.toLowerCase().includes(titleString)) ||
+                (typeof titleString === "undefined" && p.genre === genre));
+        }
+        //initial value of filteredPlays set to fullPlaysList in case user does multiple filter requests in a row without
+        //clearing initial filters
+        let filteredPlays = cloneDeep(fullPlaysList);
+        //only filters by title or genre if at least one is specified
+        if (typeof filters.title != "undefined" || typeof filters.genre != "undefined"){
+            const filterTitleGenre = cloneDeep(filteredPlays);
+            filteredPlays = filterPlaysByTitleGenre(filters.title.toLowerCase(), filters.genre, filterTitleGenre);
+        }
+
         //only filters by dates if either before or after year is specified
         if (typeof filters.before != "undefined" || typeof filters.after != "undefined"){
             const filterByDate = cloneDeep(filteredPlays);
-            filteredPlays = filterPlaysByDate(parseInt(filters.before), parseInt(filters.after), filterByDate);
+            filteredPlays = filterPlaysByDate(filters.before, filters.after, filterByDate);
         }
+
         //sets the list of filtered plays to state
         updatePlays(filteredPlays);
     }
@@ -95,17 +112,6 @@ function App() {
         );
     }
 
-  // return (
-  //   <div className="App">
-  //       <DefaultView/>
-  //     {/*  commented out for now so nothing breaks while testing*/}
-  //     {/*<Route path="/home" exact component={<Home/>} />*/}
-  //     <Route path='/default' exact component={DefaultView}/>
-  //     {/*<Switch>*/}
-  //     {/*  <Route path='/:play' children={<PlayDetails/>}/>*/}
-  //     {/*</Switch>*/}
-  //   </div>
-  // );
 }
 
 export default App;

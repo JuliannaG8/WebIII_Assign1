@@ -7,7 +7,7 @@ const PlayTable=props=>{
                 <th onClick={props.sort}>Title</th>
                 <th onClick={props.sort}>Year</th>
             </tr>
-            {props.plays.map(p=><PlayRow play={p} key={p.id}/>)}
+            {props.plays.map(p=><PlayRow play={p} key={p.id} addFav={props.addFav}/>)}
             </tbody>
         </table>
     )
