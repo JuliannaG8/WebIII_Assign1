@@ -5,6 +5,8 @@ import DefaultView from "./Components/DefaultView";
 import {useLocalStorage} from "./Hooks/useLocalStorage";
 import * as cloneDeep from "lodash/cloneDeep";
 import Loader from "react-loader-spinner";
+import HomeView from "./Components/HomeView";
+import Tabs from "./components/Tabs";
 
 function App() {
 
@@ -39,7 +41,7 @@ function App() {
         }
     }, [fullPlaysList, setFullPlaysList])
 
-    const sort = (e)=>{
+    const sort = (e)=> {
         //cloning plays list
         const sortedPlays = cloneDeep(plays);
         let sortBy;
@@ -101,7 +103,9 @@ function App() {
             <div className="App">
                 <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort}/>
                 {/*  commented out for now so nothing breaks while testing*/}
-                {/*<Route path="/home" exact component={<Home/>} />*/}
+                {/* <Route path="/HomeView" exact> */}
+                    {/* <HomeView songs={fullPlaysList} /> */}
+                {/* </Route> */}
                 <Route path='/default' exact>
                     <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort} />
                 </Route>

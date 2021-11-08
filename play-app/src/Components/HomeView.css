@@ -1,0 +1,23 @@
+input:focus {
+    outline: none;
+  }
+  
+  .songResult {
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+  
+  .songResult::-webkit-scrollbar {
+    display: none;
+  }
+
+  a {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    background-color: lightgrey;
+  }
+  
