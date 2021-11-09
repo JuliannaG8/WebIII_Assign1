@@ -5,6 +5,9 @@ import DefaultView from "./Components/DefaultView";
 import {useLocalStorage} from "./Hooks/useLocalStorage";
 import * as cloneDeep from "lodash/cloneDeep";
 import Loader from "react-loader-spinner";
+import HomeView from "./Components/HomeView";
+import PlayDetails from "./Components/PlayDetails";
+import Tabs from "./Components/Tabs";
 
 function App() {
 
@@ -14,6 +17,7 @@ function App() {
     //altered by filter/sort/restorePlays functions and passed to other components as props
     const [plays, updatePlays] = useState([]);
     const [isFetching, stopFetching] = useState(true);
+    const [favourites, editFavourites] = useLocalStorage("fav",[]);
 
     useEffect(()=> {
         const url = "https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/list.php"; //url to fetch data
@@ -39,7 +43,7 @@ function App() {
         }
     }, [fullPlaysList, setFullPlaysList])
 
-    const sort = (e)=>{
+    const sort = (e)=> {
         //cloning plays list
         const sortedPlays = cloneDeep(plays);
         let sortBy;
@@ -57,7 +61,22 @@ function App() {
     const restorePlays = ()=>{
         updatePlays(fullPlaysList);
     }
-
+    const removeFavourite=(id)=>{
+        const favouritesCopy = cloneDeep(favourites);
+        const favToDelete=favouritesCopy.findIndex(f=>f.id === id);
+        favouritesCopy.splice(favToDelete, 1);
+        editFavourites(favouritesCopy);
+    }
+    const addFavourite=(play)=>{
+        const exists = favourites.find(f=>f.id === play.id);
+        if (typeof exists === 'undefined')
+        {
+            const favouritesCopy = cloneDeep(favourites);
+            favouritesCopy.push(play);
+            editFavourites(favouritesCopy);
+        } else
+            alert("Play already in Favourites list");
+    }
     const filter = filters =>{
         //function to filter list by dates
         const filterPlaysByDate = (before, after, filteredPlays) => {
@@ -99,15 +118,25 @@ function App() {
     } else{
         return (
             <div className="App">
-                <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort}/>
+                {/*<DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort}/>*/}
                 {/*  commented out for now so nothing breaks while testing*/}
-                {/*<Route path="/home" exact component={<Home/>} />*/}
-                <Route path='/default' exact>
-                    <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort} />
+
+                <Route path="/" exact>
+                    <HomeView songs={fullPlaysList} />
                 </Route>
-                {/*<Switch>*/}
-                {/*  <Route path='/:play' children={<PlayDetails/>}/>*/}
-                {/*</Switch>*/}
+                <Route path="/HomeView" exact>
+                     <HomeView songs={fullPlaysList} />
+                 </Route>
+                <Route path='/default' exact>
+                    <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort} favs={favourites} addFav={addFavourite} removeFav={removeFavourite} />
+                </Route>
+                <Switch>
+                    {/*<Route path="/:play/details" exact component={<Tabs head="Details"/>}/>*/}
+                    {/*<Route path="/:play/characters" exact component={<Tabs head="Characters"/>}/>*/}
+                    <Route path='/:play/details'>
+                        <PlayDetails addFav={addFavourite}/>
+                    </Route>
+                </Switch>
             </div>
         );
     }
