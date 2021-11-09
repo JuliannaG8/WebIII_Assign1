@@ -119,7 +119,7 @@ function App() {
         return (
             <div className="App">
 
-                <Route path="/" >
+                <Route path="/" exact>
                     <HomeView songs={fullPlaysList} />
                 </Route>
                 <Route path="/HomeView" exact>
@@ -129,7 +129,7 @@ function App() {
                     <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort} favs={favourites} addFav={addFavourite} removeFav={removeFavourite} />
                 </Route>
                 <Switch>
-                    <Route path='/:play/details'>
+                    <Route path='/:play/details' exact>
                         <PlayDetails addFav={addFavourite}/>
                     </Route>
                 </Switch>
