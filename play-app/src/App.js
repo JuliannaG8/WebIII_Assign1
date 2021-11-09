@@ -119,7 +119,7 @@ function App() {
         return (
             <div className="App">
 
-                <Route path="/" exact>
+                <Route path="/WebIII_Assign1/" exact>
                     <HomeView songs={fullPlaysList} />
                 </Route>
                 <Route path="/HomeView" exact>
