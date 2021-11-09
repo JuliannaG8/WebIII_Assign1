@@ -1,28 +1,28 @@
 import React from 'react'
-import Header from "./Header";
 import FavItem from './FavItem';
-import DefaultView from './DefaultView';
-import { GiTheaterCurtains } from 'react-icons/gi';
 import {Link} from 'react-router-dom';
+import {GiChainedHeart} from "react-icons/gi";
 
 const PlayTitle= props => {
 
 return(
-    <div className="default"> 
-    <Header />
-            <h2> {props.title} </h2>
+    <div className="default">
+            <h2> {props.play.title} </h2>
             <div>
-                {props.synopsis}
+                {props.play.synopsis}
             </div>
-            
-            <Link to="/DefaultView"><GiTheaterCurtains/>
+
+            <Link to={{
+                pathname: "/default",
+                state:{
+                    fromHomeView: null
+                }
+            }}>
                 <button>Close</button>
             </Link>
-            <FavItem addFav={props.addFav}>
-            <button> </button>
-            </FavItem >
+            <button onClick={props.addFav(props.play)}><GiChainedHeart/></button>
     </div>
-  
+
 )
 }
 
