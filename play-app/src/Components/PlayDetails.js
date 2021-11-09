@@ -7,11 +7,12 @@ import {useState, useEffect} from "react";
 import * as cloneDeep from "lodash/cloneDeep";
 import {useLocation, useParams} from "react-router-dom";
 import {useLocalStorage} from "../Hooks/useLocalStorage";
+import Loader from "react-loader-spinner";
 
 const PlayDetails = (props) => {
-    const {id} = useParams();
+    const {play:id} = useParams();
     const location = useLocation();
-    const details = location.state;
+    const {play:details} = location.state;
     const [play, setPlay] = useLocalStorage(id, null);
     const [current, changeCurrent] = useState("Details");
     const [isFetching, stopFetching] = useState(true);
@@ -19,7 +20,7 @@ const PlayDetails = (props) => {
     //checking to see if the api retreived the characters and text
 
     useEffect(()=> {
-        const url = "https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/play.php?name=" + {id}; //url to fetch data with props id
+        const url = `https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/play.php?name=${id}`; //url to fetch data with props id
         if (play === null){
             fetch(url)
                 .then(resp=>{
@@ -41,7 +42,18 @@ const PlayDetails = (props) => {
     }, [id, play, setPlay])
 
 
-    return <p></p>
+    if (isFetching){
+        return <Loader type="Circles" color="#00BFFF" height="50vh" width="50vh"/>
+    }
+    else
+    {
+        return (
+            <div className="detailView">
+                <Header/>
+                <PlayTitle play={details} addFav={props.addFav}/>
+            </div>
+        )
+    }
 }
 
 
