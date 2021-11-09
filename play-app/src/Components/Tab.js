@@ -10,6 +10,7 @@ const Tab = (props)=>{
     const [isFetching, stopFetching] = useState(true);
     const [buttons, changeButtons] = useState([]);
     const [tabProps, changeTabProps] = useState({})
+    
     const checkButtons = ()=>{
         if (props.play.filename === ""){
             changeButtons(["Details"]);
@@ -41,7 +42,7 @@ const Tab = (props)=>{
             changeTabProps({details: props.play, tabName: "Details"});
         }
 
-    }, [props.id, play, setPlay, checkButtons, props.play]);
+    }, [props.id, play, setPlay, props.play]);
 
     const handleTabChange = (e)=>{
         if(e.target.innerHTML === "Details") {
