@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 
 const PlayRow=props=>{
 
-
     const handleClick=()=>{
         props.addFav(props.play);
     }

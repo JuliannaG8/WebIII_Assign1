@@ -34,6 +34,7 @@ const PlayDetails = (props) => {
             <Tab play={details} id={id} tabState={changeTabState}/>
         </div>
     )
+
 }
 
 

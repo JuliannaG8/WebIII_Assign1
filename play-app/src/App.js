@@ -8,6 +8,7 @@ import Loader from "react-loader-spinner";
 import HomeView from "./Components/HomeView";
 import PlayDetails from "./Components/PlayDetails";
 
+
 function App() {
 
     //local storage logic inspired by https://blog.logrocket.com/using-localstorage-react-hooks/
