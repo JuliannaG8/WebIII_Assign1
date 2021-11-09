@@ -1,19 +1,11 @@
 import React, { useState } from "react";
 import "./HomeView.css";
-import {Link, useLocation, useParams} from 'react-router-dom';
-import Header from "./Header";
-
-
-
-
+import {Link} from 'react-router-dom';
 
 const HomeView = (props) => {
 
-    //state value when using react router
-
     const [filteredData, setFilteredData] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
-
 
     const handleFilter = (e) => {
     const searchSong = e.target.value;
@@ -50,7 +42,6 @@ const HomeView = (props) => {
             return (
                 <p>
                   {value.title}
-                  {/*{console.log(filteredData)}*/}
                 </p>
             );
           })}
@@ -64,12 +55,8 @@ const HomeView = (props) => {
                   fromHomeView: filteredData
               }
           }}>
-
-
           <button>Show Matching Plays</button>
           </Link>
-
-
           <Link to = {{
               pathname: '/default',
               state: {

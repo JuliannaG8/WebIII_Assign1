@@ -6,26 +6,53 @@ const PlayTitle= props => {
     const handleClick = ()=>{
         props.addFav(props.play);
     }
-
-return(
-    <div className="default">
+    if (props.current === "Text"){
+        return (
+            <div className="default">
             <h2> {props.play.title} </h2>
-            <div>
-                {props.play.synopsis}
-            </div>
-
+            <select>
+                {props.params.acts.map(a=><option>{a}</option>)}
+            </select>
+                <select>
+                    {props.params.scenes.map(sc=><option>{sc}</option>)}
+                </select>
+                <select>
+                    {props.params.speakers.map(sp=><option>{sp}</option>)}
+                </select>
+                <input type="text"/>
             <Link to={{
                 pathname: "/default",
-                state:{
+                state: {
                     fromHomeView: null
                 }
             }}>
                 <button>Close</button>
             </Link>
             <button onClick={handleClick}><GiChainedHeart/></button>
-    </div>
+        </div>
+        )
+    }
+    else {
+        return (
+            <div className="default">
+                <h2> {props.play.title} </h2>
+                <div>
+                    {props.play.synopsis}
+                </div>
 
-)
+                <Link to={{
+                    pathname: "/default",
+                    state: {
+                        fromHomeView: null
+                    }
+                }}>
+                    <button>Close</button>
+                </Link>
+                <button onClick={handleClick}><GiChainedHeart/></button>
+            </div>
+
+        )
+    }
 }
 
 export default PlayTitle;

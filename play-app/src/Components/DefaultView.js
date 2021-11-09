@@ -1,11 +1,9 @@
 import React, {useState} from "react";
 import PlayList from "./PlayList";
 import PlayFilter from "./PlayFilter";
-import * as cloneDeep from 'lodash/cloneDeep';
 import Header from "./Header";
 import Favourites from "./Favourites";
-import {useParams, useLocation} from 'react-router-dom';
-import {useLocalStorage} from "../Hooks/useLocalStorage";
+import { useLocation} from 'react-router-dom';
 
 const DefaultView = (props) =>{
 
