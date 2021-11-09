@@ -14,7 +14,7 @@ const PlayRow=props=>{
     return(
         <tr>
             <Link to= {{
-                pathname: `/${props.play.id}`,
+                pathname: `/${props.play.id}/details`,
                 state: {
                     play: props.play
                 }// I don't think I quite understand how this works even after watching a few videos
@@ -23,7 +23,7 @@ const PlayRow=props=>{
             <td><button onClick={handleClick}><GiChainedHeart/></button></td>
             <td>
                 <Link to= {{
-                    pathname: `/${props.play.id}`,
+                    pathname: `/${props.play.id}/details`,
                     state: {
                         play: props.play
                     }// I don't think I quite understand how this works even after watching a few videos
