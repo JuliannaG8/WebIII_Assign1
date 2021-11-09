@@ -9,6 +9,13 @@ const Tab = (props)=>{
     const [isFetching, stopFetching] = useState(true);
     const [buttons, changeButtons] = useState([]);
     const [tabProps, changeTabProps] = useState({})
+    const checkButtons = ()=>{
+        if (props.play.filename === ""){
+            changeButtons(["Details"]);
+        } else {
+            changeButtons(["Details", "Characters", "Text"]);
+        }
+    }
     useEffect(()=> {
         const url = `https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/play.php?name=${props.id}`; //url to fetch data with props id
         if (play === null && props.play.filename !== ""){
@@ -33,15 +40,7 @@ const Tab = (props)=>{
             changeTabProps({details: props.play, tabName: "Details"});
         }
 
-    }, [props.id, play, setPlay]);
-
-    const checkButtons = ()=>{
-        if (props.play.filename === ""){
-            changeButtons(["Details"]);
-        } else {
-            changeButtons(["Details", "Characters", "Text"]);
-        }
-    }
+    }, [props.id, play, setPlay, checkButtons, props.play]);
 
     const handleTabChange = (e)=>{
         if(e.target.innerHTML === "Details") {

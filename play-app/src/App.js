@@ -7,7 +7,6 @@ import * as cloneDeep from "lodash/cloneDeep";
 import Loader from "react-loader-spinner";
 import HomeView from "./Components/HomeView";
 import PlayDetails from "./Components/PlayDetails";
-import Tabs from "./Components/Tabs";
 
 function App() {
 
@@ -118,8 +117,6 @@ function App() {
     } else{
         return (
             <div className="App">
-                {/*<DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort}/>*/}
-                {/*  commented out for now so nothing breaks while testing*/}
 
                 <Route path="/" exact>
                     <HomeView songs={fullPlaysList} />
@@ -131,8 +128,6 @@ function App() {
                     <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort} favs={favourites} addFav={addFavourite} removeFav={removeFavourite} />
                 </Route>
                 <Switch>
-                    {/*<Route path="/:play/details" exact component={<Tabs head="Details"/>}/>*/}
-                    {/*<Route path="/:play/characters" exact component={<Tabs head="Characters"/>}/>*/}
                     <Route path='/:play/details'>
                         <PlayDetails addFav={addFavourite}/>
                     </Route>

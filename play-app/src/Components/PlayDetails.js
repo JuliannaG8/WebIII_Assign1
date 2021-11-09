@@ -1,11 +1,8 @@
 import React from 'react'
 import Header from "./Header";
 import PlayTitle from "./PlayTitle";
-import Tabs from "./Tabs";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
-import {useLocalStorage} from "../Hooks/useLocalStorage";
-import Loader from "react-loader-spinner";
 import Tab from "./Tab";
 
 const PlayDetails = (props) => {
