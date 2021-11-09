@@ -45,11 +45,11 @@ const Tab = (props)=>{
     }
 
     const handleTabChange = (e)=>{
-        if(e.target.value === "Details")
+        if(e.target.innerHTML === "Details")
             changeTabProps({details: props.play, tabName: "Details"});
-        else if(e.target.value === "Characters")
+        else if(e.target.innerHTML === "Characters")
             changeTabProps({details: play.persona, tabName: "Characters"});
-        else if(e.target.value === "Text")
+        else if(e.target.innerHTML === "Text")
             changeTabProps({details: play.acts, tabName: "Text"});
 
     }
