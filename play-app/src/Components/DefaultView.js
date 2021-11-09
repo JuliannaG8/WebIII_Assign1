@@ -9,15 +9,13 @@ import {useLocalStorage} from "../Hooks/useLocalStorage";
 
 const DefaultView = (props) =>{
 
-        //Since we have to pass in values to the default view the default view
-        //needs a way to be able to take the useparams and uselocation hooks
-        // const { handle } = useParams()
         const location = useLocation()
-        const { fromHomeView } = location.state
-        // const [state, setState] = React.useState(null)
+        const [locationState, changeLocationState] = useState(null);
 
-
-        // const [favourites, editFavourites] = useLocalStorage("",[]);
+        if(typeof location.state != "undefined"){
+                const {fromHomeView} = location.state;
+                if (fromHomeView != null) changeLocationState(fromHomeView);
+        }
         const [favouritesVisibility, editFavouritesVisibility] = useState(true);
 
         const toggleVisibility=()=>{
@@ -27,7 +25,7 @@ const DefaultView = (props) =>{
                         editFavouritesVisibility(true);
         }
 
-        const playlist=fromHomeView===null ? props.plays : fromHomeView;
+        const playlist=locationState===null ? props.plays : locationState;
 
         return (
             <div className="default">

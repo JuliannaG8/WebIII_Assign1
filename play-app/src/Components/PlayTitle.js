@@ -1,9 +1,11 @@
-import React from 'react'
-import FavItem from './FavItem';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {GiChainedHeart} from "react-icons/gi";
 
 const PlayTitle= props => {
+    const handleClick = ()=>{
+        props.addFav(props.play);
+    }
 
 return(
     <div className="default">
@@ -20,7 +22,7 @@ return(
             }}>
                 <button>Close</button>
             </Link>
-            <button onClick={props.addFav(props.play)}><GiChainedHeart/></button>
+            <button onClick={handleClick}><GiChainedHeart/></button>
     </div>
 
 )
