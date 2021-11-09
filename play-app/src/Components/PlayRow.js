@@ -5,25 +5,29 @@ import { GiTheaterCurtains } from "react-icons/gi";
 
 const PlayRow=props=>{
 
-    const location = useLocation()
-    const { fromPlayRow } = location.state
+    // const location = useLocation()
+    // const { fromPlayRow } = location.state
 
     const handleClick=()=>{
         props.addFav(props.play);
     }
     return(
         <tr>
-            <td>{props.play.title}</td>
+            <Link to= {{
+                pathname: `/${props.play.id}`,
+                state: {
+                    play: props.play
+                }// I don't think I quite understand how this works even after watching a few videos
+            }}><td>{props.play.title}</td></Link>
             <td>{props.play.likelyDate}</td>
             <td><button onClick={handleClick}><GiChainedHeart/></button></td>
             <td>
                 <Link to= {{
-                    pathname: '/PlayDetails'
+                    pathname: `/${props.play.id}`,
                     state: {
-                        fromPlayRow: true
-                    }
-                id = {props.id} // I don't think I quite understand how this works even after watching a few videos
-                }}><GiTheaterCurtains/>
+                        play: props.play
+                    }// I don't think I quite understand how this works even after watching a few videos
+                }}>
                 <button>View</button>
                 </Link>
             </td>

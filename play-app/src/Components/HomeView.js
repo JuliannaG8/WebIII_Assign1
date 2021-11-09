@@ -7,10 +7,10 @@ import Header from "./Header";
 
 
 
-function HomeView({ placeholder, data }) {
- 
+const HomeView = (props) => {
+
     //state value when using react router
-  
+
     const [filteredData, setFilteredData] = useState([]);
     const [wordEntered, setWordEntered] = useState("");
 
@@ -18,7 +18,7 @@ function HomeView({ placeholder, data }) {
     const handleFilter = (e) => {
     const searchSong = e.target.value;
         setWordEntered(searchSong);
-            const newFilter = data.filter((value) => {
+            const newFilter = props.songs.filter((value) => {
                 return value.title.toLowerCase().includes(searchSong.toLowerCase());
     });
 
@@ -29,56 +29,55 @@ function HomeView({ placeholder, data }) {
     }
   };
 
- 
-    return (  
+
+    return (
         <div className="default">
-            
+
         <div className="minibox"> Play Browser
 
             <div className="searchInputs"> Title: {" "}
                 <input
                     type="text"
-                    placeholder={placeholder}
+                    placeholder=""
                     value={wordEntered}
                     onChange={handleFilter}
-          
+
                 />
       {filteredData.length !== 0 && (
         <div className="songResult">
           {filteredData.map((value, key) => {
-            
-            return (              
-                <p>                     
-                  {value.title}  
-                  {console.log(filteredData)}           
+
+            return (
+                <p>
+                  {value.title}
+                  {/*{console.log(filteredData)}*/}
                 </p>
             );
           })}
         </div>
       )}
     </div>
-    
+
           <Link to = {{
-              pathname: '/DefaultView',
+              pathname: '/default',
               state: {
-                  fromHomeView: true
+                  fromHomeView: filteredData
               }
           }}>
-                
-                song = {filteredData}
-            
+
+
           <button>Show Matching Plays</button>
           </Link>
-          
-          
+
+
           <Link to = {{
-              pathname: '/DefaultView',
+              pathname: '/default',
               state: {
-                  fromHomeView: true
+                  fromHomeView: null
               }
               }}>
           <button>Show All Plays</button>
-          
+
           </Link>
     </div>
     </div>

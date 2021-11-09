@@ -14,7 +14,7 @@ const Header = ()=>{
     }
     return(
       <div>
-          <span><Link to="/home"><GiTheaterCurtains/></Link></span>
+          <span><Link to="/HomeView"><GiTheaterCurtains/></Link></span>
           <button onClick={handleModel}>About</button>
           <ReactModal isOpen={modalIsOpen} ariaHideApp={true}>
               <p>Julianna and Justin</p>

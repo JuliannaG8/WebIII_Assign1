@@ -6,7 +6,8 @@ import {useLocalStorage} from "./Hooks/useLocalStorage";
 import * as cloneDeep from "lodash/cloneDeep";
 import Loader from "react-loader-spinner";
 import HomeView from "./Components/HomeView";
-import Tabs from "./components/Tabs";
+import PlayDetails from "./Components/PlayDetails";
+import Tabs from "./Components/Tabs";
 
 function App() {
 
@@ -101,17 +102,24 @@ function App() {
     } else{
         return (
             <div className="App">
-                <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort}/>
+                {/*<DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort}/>*/}
                 {/*  commented out for now so nothing breaks while testing*/}
-                {/* <Route path="/HomeView" exact> */}
-                    {/* <HomeView songs={fullPlaysList} /> */}
-                {/* </Route> */}
+
+                <Route path="/" exact>
+                    <HomeView songs={fullPlaysList} />
+                </Route><Route path="/HomeView" exact>
+                     <HomeView songs={fullPlaysList} />
+                 </Route>
                 <Route path='/default' exact>
                     <DefaultView plays={plays} restore={restorePlays} filter={filter} sort={sort} />
                 </Route>
-                {/*<Switch>*/}
-                {/*  <Route path='/:play' children={<PlayDetails/>}/>*/}
-                {/*</Switch>*/}
+                <Switch>
+                    {/*<Route path="/:play/details" exact component={<Tabs head="Details"/>}/>*/}
+                    {/*<Route path="/:play/characters" exact component={<Tabs head="Characters"/>}/>*/}
+                    <Route path='/:play' exact>
+                        <PlayDetails/>
+                    </Route>
+                </Switch>
             </div>
         );
     }
