@@ -1,44 +1,48 @@
-import {useLocalStorage} from "../Hooks/useLocalStorage";
-import {useState, useEffect} from "react";
-import Loader from 'react-loader-spinner';
-
+import React, {useState} from "react";
+import PlayList from "./PlayList";
+import PlayFilter from "./PlayFilter";
+import Header from "./Header";
+import Favourites from "./Favourites";
+import { useLocation} from 'react-router-dom';
+import './DefaultView.css';
 
 const DefaultView = (props) =>{
-    const [plays, updatePlays] = useLocalStorage("plays", []);
-    const [isFetching, stopFetching] = useState(true);
-    useEffect(()=> {
-        const url = "https://www.randyconnolly.com//funwebdev/3rd/api/shakespeare/list.php"; //url to fetch data
-        if (plays.length === 0) { //only fetches if local storage doesn't exist
-            fetch(url)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error("Fetch failed");
-                    }
-                })
-                .then(data => {
-                    //places fetched data in state
-                    updatePlays(data);
-                    stopFetching(false);
-                })
-                .catch(error => console.error(error));
-        } else stopFetching(false);
-    }, [plays, updatePlays])
-    if (isFetching && plays.length === 0){
-        return <Loader type="Circles" color="#00BFFF" height="50vh" width="50vh"/>
-    } else{
+
+        
+        const location = useLocation()
+        const [locationState, changeLocationState] = useState(null);
+
+        if(typeof location.state != "undefined"){
+                //fromHomeView holds the array that was entered in the HomeView
+                const {fromHomeView} = location.state;
+                if (fromHomeView != null) changeLocationState(fromHomeView);
+        }
+        const [favouritesVisibility, editFavouritesVisibility] = useState(true);
+
+        const toggleVisibility=()=>{
+                if(favouritesVisibility)
+                        editFavouritesVisibility(false);
+                else
+                        editFavouritesVisibility(true);
+        }
+
+        const playlist=locationState===null ? props.plays : locationState;
+
         return (
-            <main className="default">
-                {/*<Header/>*/}
-            {/*    {if (props.search){*/}
-            {/*        <PlayList plays={plays} keyword={props.search}/>*/}
-            {/*    }else{*/}
-            {/*    <PlayList plays={plays}/>*/}
-            {/*}}*/}
-                {/*<Favourites/>*/}
-            </main>
+                <div className="container">
+                <div className="header">
+                <Header/>
+                </div>
+                <div className="favourites">
+                <Favourites favourites={props.favs} visible={favouritesVisibility} remove={props.removeFav} toggle={toggleVisibility}/>
+                </div>
+                <div className="playfilter">
+                <PlayFilter genres={[...new Set(props.plays.map(p=>p.genre))]} filter={props.filter} reset={props.restore}/>
+                </div>
+                <div className="playlist">
+                <PlayList plays={playlist} search={props.search} sort={props.sort} addFav={props.addFav}/>
+                </div>
+            </div>
         )
-    }
 }
 export default DefaultView;
