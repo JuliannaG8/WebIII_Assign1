@@ -27,7 +27,6 @@ const Tabs = props =>{
                         {act.scenes.map(sc=>{
                             return(
                                 <span>
-                                    <hr/>
                                     <h3>{sc.name}</h3>
                                     <p><em>{sc.title}</em></p>
                                     {sc.speeches.map(sp=>{
@@ -38,7 +37,7 @@ const Tabs = props =>{
                                             </div>
                                         )
                                     })}
-
+                                    <hr/>
                                 </span>
                             )
                         })}

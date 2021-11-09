@@ -6,7 +6,6 @@ import Loader from "react-loader-spinner";
 const Tab = (props)=>{
 
     const [play, setPlay] = useLocalStorage(props.id, null);
-    const [current, changeCurrent] = useState("Details");
     const [isFetching, stopFetching] = useState(true);
     const [buttons, changeButtons] = useState([]);
     const [tabProps, changeTabProps] = useState({})
@@ -45,13 +44,25 @@ const Tab = (props)=>{
     }
 
     const handleTabChange = (e)=>{
-        if(e.target.innerHTML === "Details")
+        if(e.target.innerHTML === "Details") {
             changeTabProps({details: props.play, tabName: "Details"});
-        else if(e.target.innerHTML === "Characters")
+            props.tabState(e.target.innerHTML);
+        }else if(e.target.innerHTML === "Characters") {
             changeTabProps({details: play.persona, tabName: "Characters"});
-        else if(e.target.innerHTML === "Text")
+            props.tabState(e.target.innerHTML);
+        }else if(e.target.innerHTML === "Text") {
             changeTabProps({details: play.acts, tabName: "Text"});
-
+            let acts = [];
+            let scenes = [];
+            const char = play.persona.map(p=>p.player);
+            play.acts.forEach(a=>{
+                acts.push(a.name);
+                a.scenes.forEach(s=>{
+                    scenes.push(s);
+                })
+            })
+            props.tabState(e.target.innerHTML, acts, [...new Set(scenes.map(s=>s.name))], char);
+        }
     }
     if (isFetching)
         return <Loader type="Circles" color="#00BFFF" height="50vh" width="50vh"/>
