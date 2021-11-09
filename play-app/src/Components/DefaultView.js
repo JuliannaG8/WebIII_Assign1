@@ -5,6 +5,7 @@ import * as cloneDeep from 'lodash/cloneDeep';
 import Header from "./Header";
 import Favourites from "./Favourites";
 import {useParams, useLocation} from 'react-router-dom';
+import {useLocalStorage} from "../Hooks/useLocalStorage";
 
 const DefaultView = (props) =>{
 
@@ -16,29 +17,14 @@ const DefaultView = (props) =>{
         // const [state, setState] = React.useState(null)
 
 
-        const [favourites, editFavourites] = useState([]);
+        // const [favourites, editFavourites] = useLocalStorage("",[]);
         const [favouritesVisibility, editFavouritesVisibility] = useState(true);
-        const addFavourite=(play)=>{
-                const exists = favourites.find(f=>f.id === play.id);
-                if (typeof exists === 'undefined')
-                {
-                        const favouritesCopy = cloneDeep(favourites);
-                        favouritesCopy.push(play);
-                        editFavourites(favouritesCopy);
-                } else
-                        alert("Play already in Favourites list");
-        }
+
         const toggleVisibility=()=>{
                 if(favouritesVisibility)
                         editFavouritesVisibility(false);
                 else
                         editFavouritesVisibility(true);
-        }
-        const removeFavourite=(id)=>{
-                const favouritesCopy = cloneDeep(favourites);
-                const favToDelete=favouritesCopy.findIndex(f=>f.id === id);
-                favouritesCopy.splice(favToDelete, 1);
-                editFavourites(favouritesCopy);
         }
 
         const playlist=fromHomeView===null ? props.plays : fromHomeView;
@@ -46,9 +32,9 @@ const DefaultView = (props) =>{
         return (
             <div className="default">
                 <Header/>
-                <Favourites favourites={favourites} visible={favouritesVisibility} remove={removeFavourite} toggle={toggleVisibility}/>
+                <Favourites favourites={props.favs} visible={favouritesVisibility} remove={props.removeFav} toggle={toggleVisibility}/>
                 <PlayFilter genres={[...new Set(props.plays.map(p=>p.genre))]} filter={props.filter} reset={props.restore}/>
-                <PlayList plays={playlist} search={props.search} sort={props.sort} addFav={addFavourite}/>
+                <PlayList plays={playlist} search={props.search} sort={props.sort} addFav={props.addFav}/>
             </div>
         )
 }
