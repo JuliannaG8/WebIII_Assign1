@@ -1,10 +1,11 @@
+import './DetailView.css';
 
 const Tabs = props =>{
     if (props.tabName === "Details"){
         return(
-            <div>
+            <div className = "tabtext" >
                 <p>Likely Year: {props.details.likelyDate}</p>
-                <p> Genre: {props.details.genre}</p>
+                <p>Genre: {props.details.genre}</p>
                 <p>Wiki: {props.details.wiki}, Gutenberg: {props.details.gutenberg}, ShakespeareOrg: {props.details.shakespeareOrg}</p>
                 <p>{props.details.desc}</p>
             </div>

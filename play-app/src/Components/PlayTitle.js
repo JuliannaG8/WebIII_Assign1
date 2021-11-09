@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {GiChainedHeart} from "react-icons/gi";
+import './DetailView.css';
 
 const PlayTitle= props => {
     const handleClick = ()=>{
@@ -8,7 +9,7 @@ const PlayTitle= props => {
     }
     if (props.current === "Text"){
         return (
-            <div className="default">
+            <div className="titlebox">
             <h2> {props.play.title} </h2>
             <select>
                 {props.params.acts.map(a=><option>{a}</option>)}
@@ -19,14 +20,14 @@ const PlayTitle= props => {
                 <select>
                     {props.params.speakers.map(sp=><option>{sp}</option>)}
                 </select>
-                <input type="text"/>
+                <input type="text" className="stringtype"/>       
             <Link to={{
                 pathname: "/default",
                 state: {
                     fromHomeView: null
                 }
             }}>
-                <button>Close</button>
+                <button>Go Back</button>
             </Link>
             <button onClick={handleClick}><GiChainedHeart/></button>
         </div>
@@ -34,9 +35,9 @@ const PlayTitle= props => {
     }
     else {
         return (
-            <div className="default">
+            <div className="titletext">
                 <h2> {props.play.title} </h2>
-                <div>
+                <div className="synopsis">
                     {props.play.synopsis}
                 </div>
 
@@ -46,7 +47,7 @@ const PlayTitle= props => {
                         fromHomeView: null
                     }
                 }}>
-                    <button>Close</button>
+                    <button>Go Back</button>
                 </Link>
                 <button onClick={handleClick}><GiChainedHeart/></button>
             </div>

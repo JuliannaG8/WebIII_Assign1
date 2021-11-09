@@ -2,6 +2,7 @@ import {useLocalStorage} from "../Hooks/useLocalStorage";
 import {useEffect, useState} from "react";
 import Tabs from "./Tabs";
 import Loader from "react-loader-spinner";
+import './DetailView.css';
 
 const Tab = (props)=>{
 
@@ -68,8 +69,8 @@ const Tab = (props)=>{
     else {
         return (
             <div>
-                <span>{buttons.map(b => <button onClick={handleTabChange}>{b}</button>)}</span>
-                <Tabs {...tabProps}/>
+                <span className="tabs">{buttons.map(b => <button onClick={handleTabChange}>{b}</button>)}</span>
+                <Tabs {...tabProps} key = {props.id}/>
             </div>
         )
     }

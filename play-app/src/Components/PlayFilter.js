@@ -1,4 +1,5 @@
 import {createRef} from "react";
+import './DefaultView.css';
 
 const PlayFilter=props=>{
     //creating references for form fields
@@ -47,8 +48,9 @@ const PlayFilter=props=>{
                     {props.genres.map(g=><option value={g} key={g}>{g}</option>)}
                 </select>
             </div>
-            <input type="submit" value="Filter"/>
-            <input type="reset" value="Clear"/>
+            <br></br>
+            <button type="submit" value="Filter">Filter</button>
+            <button type="reset" value="Clear">Clear</button>
         </form>
     )
 

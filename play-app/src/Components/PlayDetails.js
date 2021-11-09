@@ -4,6 +4,7 @@ import PlayTitle from "./PlayTitle";
 import {useState} from "react";
 import {useLocation, useParams} from "react-router-dom";
 import Tab from "./Tab";
+import './DetailView.css';
 
 const PlayDetails = (props) => {
     const {play:id} = useParams();
@@ -29,9 +30,15 @@ const PlayDetails = (props) => {
 
     return (
         <div className="detailView">
+            <div className="header">
             <Header/>
+            </div>
+            <div className="playtitle">
             <PlayTitle play={details} addFav={props.addFav} current={currentTab} params={searchParams}/>
+            </div>
+            <div className="tab">
             <Tab play={details} id={id} tabState={changeTabState}/>
+            </div>
         </div>
     )
 

@@ -1,0 +1,132 @@
+.detailView {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: 100px 300px;
+    grid-gap: 10px;
+    padding: 10px;
+    }
+
+  .header {
+      grid-column: span 10;
+      background-color: #1a1a2e;
+      display: inline-flex;
+    }
+  
+    .header > div {
+      margin: 20px;
+      gap: 1670px;
+      margin-top: 25px;
+    }
+    
+   .playtitle{
+    grid-column: span 3;
+    background-color: #1a1a2e;
+    height: 830px;
+   }
+
+   .tab{
+    grid-column: span 7;
+    background-color: #1a1a2e;
+    height: 830px;
+    overflow-y: scroll;
+   }
+
+   .tabtext{
+       padding: 30px;
+   }
+
+   .titlebox{
+       display:grid;
+       grid-template-rows: 100px;
+   }
+
+   .titlebox button{
+    display:grid;
+    grid-template-rows: 100px;
+    width:50%;
+    margin-left: 25%;
+    align-items:stretch;
+    margin-top: 10px;
+}
+
+.titletext{
+    padding: 5px;
+}
+
+.synopsis{
+    padding: 30px;
+    font-style: italic;
+}
+
+span .tabs{
+    background-color: #d30202;
+}
+
+.titlebox button svg{
+    display:grid;
+    grid-template-rows: 100px;
+    width:50%;
+    margin-left: 25%;
+}
+
+.stringtype{
+    height:50px;
+}
+
+   select{
+       height: 50px;
+   }
+
+  
+    body {
+      background-color: #133b6b;
+      color: white;
+  }
+  
+  ::placeholder {
+      color: white;
+  }
+  
+  li{
+      padding: 10px;
+  }
+  
+  li .button{
+      background-color: #fafafa;
+  }
+  
+  .about{
+    color: black;
+  }
+  
+  /*---- BUTTON CSS CREDIT TO CSSWAND CSSWAND.DEV -------*/
+  
+  button {
+      color: #E2E2E2;
+      background-color: #292D3E;
+      border: 1px solid #E2E2E2;
+      border-radius: 4px;
+      padding: 15px;
+         padding-bottom: 30px;
+      cursor: pointer;
+      height: 32px;
+      font-size: 14px;
+      box-shadow: 0 0 4px #999;
+      outline: none;
+      background-position: center;
+      transition: background 0.3s;
+    }
+    
+    button:hover{
+      background: #E2E2E2 radial-gradient(circle, transparent 1%, #47a7f5 1%)
+       center/15000%;
+      color: #292D3E;
+    }
+    
+    button:active{
+      background-color: #292d3e;
+      background-size: 100%;
+      transition: background 0s;
+    }
+
+   

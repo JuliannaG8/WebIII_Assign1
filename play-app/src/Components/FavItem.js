@@ -3,7 +3,7 @@ const FavItem = props=>{
         props.remove(props.play.id);
     }
     return(
-        <li key={props.id}><strong>{props.play.title}</strong> <button onClick={handleClick}>Remove Favourite</button></li>
+        <li key={props.id}><strong>{props.play.title}</strong> <button onClick={handleClick}>Remove</button></li>
     );
 }
 export default FavItem;

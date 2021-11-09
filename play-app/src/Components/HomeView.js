@@ -23,7 +23,7 @@ const HomeView = (props) => {
 
 
     return (
-        <div className="default">
+        <div className="background">
 
         <div className="minibox"> Play Browser
 
